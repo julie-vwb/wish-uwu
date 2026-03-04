@@ -15,7 +15,7 @@
 --white:#FFFFFF;
 --glow:rgba(79,195,247,0.4);
 --accent:#FFF176;
---status-red:#FF8FB1; /* สีของจุดสถานะกระพริบ */
+--status-red:#FF8FB1;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Mitr',sans-serif;}
@@ -24,12 +24,39 @@ body{
 background:var(--bg);
 display:flex;
 justify-content:center;
+position: relative;
+overflow-x: hidden;
+min-height: 100vh;
+}
+
+/* --- พื้นหลังอิโมจิฟุ้งๆ --- */
+.bg-emojis {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  font-size: 24px;
+}
+
+.floating-emoji {
+  position: absolute;
+  animation: floatBG 15s infinite linear;
+  opacity: 0.4;
+}
+
+@keyframes floatBG {
+  0% { transform: translateY(110vh) rotate(0deg); }
+  100% { transform: translateY(-10vh) rotate(360deg); }
 }
 
 .container{
 max-width:500px;
 width:100%;
 padding:20px 15px 40px;
+z-index: 1;
 }
 
 .section{
@@ -44,16 +71,39 @@ border:2px solid var(--main);
 h1,h2,h3{color:var(--dark);}
 .center{text-align:center;}
 
+/* --- โลโก้และอิโมจิรอบโลโก้ --- */
+.logo-wrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .logo{
 width:150px;height:150px;
 border-radius:50%;
 overflow:hidden;
-margin:0 auto 20px;
 box-shadow:0 6px 20px var(--glow);
 border: 4px solid var(--white);
+position: relative;
+z-index: 2;
 }
 
 .logo img{width:100%;height:100%;object-fit:cover;}
+
+.logo-deco {
+  position: absolute;
+  font-size: 28px;
+  animation: pulse 3s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
 
 .badges{
 display:flex;
@@ -94,7 +144,6 @@ border:2px dashed var(--main);
 color:var(--dark);
 }
 
-/* --- ส่วนของจุดกระพริบ (Status Dot) --- */
 .status-dot {
   width: 10px;
   height: 10px;
@@ -114,11 +163,6 @@ color:var(--dark);
 .btn-main{
 background:var(--main);
 color:#fff;
-}
-
-.btn-accent{
-background:var(--accent);
-color:var(--dark);
 }
 
 .step{
@@ -200,12 +244,25 @@ border: 1px dashed #fbc02d;
 </head>
 
 <body>
+  <div class="bg-emojis">
+    <span class="floating-emoji" style="left: 10%; animation-delay: 0s;">🪼</span>
+    <span class="floating-emoji" style="left: 25%; animation-delay: 2s;">🌙</span>
+    <span class="floating-emoji" style="left: 45%; animation-delay: 4s;">⭐️</span>
+    <span class="floating-emoji" style="left: 70%; animation-delay: 6s;">🪼</span>
+    <span class="floating-emoji" style="left: 85%; animation-delay: 8s;">⭐️</span>
+  </div>
+
 <div class="container">
 
 <div class="section center" style="border:none;box-shadow:none;background:transparent;">
 
-<div class="logo">
-<img src="att.be82oFQlt5Q154biR3LCzBXlgJKcQ_gDr4r5yDftOug.jpeg" alt="wish uwu logo">
+<div class="logo-wrapper">
+  <span class="logo-deco" style="top: 0; left: 10%;">🪼</span>
+  <span class="logo-deco" style="bottom: 10%; right: 5%;">🌙</span>
+  <span class="logo-deco" style="top: 20%; right: 0%;">⭐️</span>
+  <div class="logo">
+    <img src="att.be82oFQlt5Q154biR3LCzBXlgJKcQ_gDr4r5yDftOug.jpeg" alt="wish uwu logo">
+  </div>
 </div>
 
 <h1>wish uwu</h1>
@@ -227,7 +284,6 @@ border: 1px dashed #fbc02d;
 
 <div class="section">
 <h2>📝 ขั้นตอนการสั่งซื้อ</h2>
-
 <div class="step"><div class="step-num">1</div><div>ดูตัวอย่างงาน บล็อกและตูนจากลิงก์ด้านล่าง</div></div>
 <div class="step"><div class="step-num">2</div><div>แจ้งป้ายที่สนใจ โทนสี ตูน และคำที่ต้องการ (บรีฟละเอียด)</div></div>
 <div class="step"><div class="step-num">3</div><div>โอนเงินเพื่อเริ่มงาน (โอน = เริ่มคิว)</div></div>
@@ -239,7 +295,6 @@ border: 1px dashed #fbc02d;
 
 <div class="section">
 <h2>💰 เมนูราคางาน</h2>
-
 <div class="price-row"><span>ป้ายแนวน่ารัก / ฟุ้ง / ทั่วไป</span><span class="price-tag">เริ่ม 59฿</span></div>
 <div class="price-row"><span>ป้ายแนววิปครีม V.2</span><span class="price-tag">เริ่ม 79฿</span></div>
 <div class="price-row"><span>ป้ายเรทต่างๆ</span><span class="price-tag">เริ่ม 79฿</span></div>
@@ -249,22 +304,18 @@ border: 1px dashed #fbc02d;
 <strong>📍 กฎของร้าน:</strong><br>
 • โอนแล้วไม่คืนเงินทุกกรณี<br>
 • ยกเลิกหลังบรีฟ (เริ่มงานแล้ว) คืน 50%<br>
-• ยกเลิกหลังเช็คงาน ไม่คืนเงินและส่งงานปกติ
+• ยกเลิกหลังจากเช็คงาน = ไม่คืน และส่งงานปกติ
 </div>
 </div>
 
 <div class="footer">
 <a href="https://lin.ee/V1bfWni" class="btn btn-main">สั่งงาน / สอบถามทาง LINE 🎀</a>
-
 <div class="socials">
 <a href="https://www.facebook.com/share/1H4J8KVrQW/?mibextid=wwXIfr">Facebook</a>
 <a href="https://lin.ee/V1bfWni">Line Official</a>
 <a href="https://drive.google.com/drive/folders/1iTua1B5bVV9VZ6FXwRDDX-NdBIe4l44R">Portfolio</a>
 </div>
-
-<p class="small">
-© 2026 wish uwu - ขอบคุณที่ใช้บริการค่ะ
-</p>
+<p class="small">© 2026 wish uwu - ขอบคุณที่ใช้บริการค่ะ</p>
 </div>
 
 </div>
