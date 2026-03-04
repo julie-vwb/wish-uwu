@@ -9,7 +9,7 @@
 
 <style>
 :root{
---bg:#E3F2FD; /* ปรับโทนสี ฟ้า-เหลือง ตามที่ชอบ */
+--bg:#E3F2FD; 
 --main:#4FC3F7;
 --dark:#0277BD;
 --white:#FFFFFF;
@@ -83,10 +83,18 @@ font-weight:500;
 transition: 0.3s;
 }
 
+/* เพิ่ม Animation กระพริบสำหรับปุ่มเช็คคิว */
+@keyframes blinkGlow {
+  0% { box-shadow: 0 0 5px rgba(79, 195, 247, 0.2); border-color: var(--main); }
+  50% { box-shadow: 0 0 15px rgba(79, 195, 247, 0.8); border-color: #0288d1; transform: scale(1.02); }
+  100% { box-shadow: 0 0 5px rgba(79, 195, 247, 0.2); border-color: var(--main); }
+}
+
 .btn-outline{
 background:#fff;
 border:2px dashed var(--main);
 color:var(--dark);
+animation: blinkGlow 2s infinite ease-in-out; /* ใส่การกระพริบ */
 }
 
 .btn-main{
